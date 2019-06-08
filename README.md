@@ -5,5 +5,5 @@ A SilverStripe module for media cataloging
 ## Installation
 
 ```
-composer require silverstripe/blog
+composer require isaacdanielreyna/mediacatalog
 ```
