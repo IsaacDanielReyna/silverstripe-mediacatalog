@@ -1,7 +1,7 @@
 {
     "name": "isaacdanielreyna/mediacatalog",
     "description": "A SilverStripe module for media cataloging",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "homepage": "http://github.com/isaacdanielreyna/silverstripe-bootstrap-homepage",
     "keywords": ["silverstripe","media catalog"],
 	"authors": [
