@@ -1,0 +1,30 @@
+{
+    "name": "isaacdanielreyna/mediacatalog",
+    "description": "A SilverStripe module for media cataloging",
+    "type": "silverstripe-module",
+    "homepage": "http://github.com/isaacdanielreyna/silverstripe-bootstrap-homepage",
+    "keywords": ["silverstripe","media catalog"],
+	"authors": [
+		{
+			"name": "Isaac Daniel Reyna",
+			"email": "silverstripe@isaacreyna.com"
+		}
+	],
+    "license": "none",
+    "require": {
+        "silverstripe/framework": "^4.0",
+        "silverstripe/admin": "^1.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "expose": [
+            "css",
+            "javascript",
+            "images"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
