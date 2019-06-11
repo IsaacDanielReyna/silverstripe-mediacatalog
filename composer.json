@@ -22,7 +22,6 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev",
             "dev-feature/media-object": "2.5.x-dev"
         },
         "expose": [
