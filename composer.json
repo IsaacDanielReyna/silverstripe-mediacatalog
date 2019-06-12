@@ -22,7 +22,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-feature/media-object": "2.5.x-dev"
+            "dev-feature/media-object": "2.5-dev"
         },
         "expose": [
             "css",
