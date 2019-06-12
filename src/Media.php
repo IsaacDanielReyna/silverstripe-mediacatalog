@@ -35,7 +35,9 @@ class Media extends DataObject
     ];
 
     private static $summary_fields = [
+        'Image.CMSThumbnail' => 'Image',
         'Title' => 'Title',
+        'NativeTitle' => 'Native Title',
         'Transliteration' => 'Transliteration',
         'Rating' => 'Raiting',
         'LastUpdate' => 'Last Update'
@@ -52,7 +54,8 @@ class Media extends DataObject
             TextField::create('NativeTitle', 'Native Title'),
             DateField::create('LastUpdate','Last Updated'),
             TextareaField::create('Description', 'Description'),
-            NumericField::create('Rating', 'Rating'),
+            NumericField::create('Rating', 'Rating')
+                ->setScale(2),
             $uploader = UploadField::create('Image', 'Cover Image')
         );
 
