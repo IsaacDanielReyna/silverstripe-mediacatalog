@@ -10,6 +10,9 @@ use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Versioned\Versioned;
+use SilverStripe\ORM\Connect\MySQLSchemaManager;
 
 class Media extends DataObject
 {
@@ -20,7 +23,6 @@ class Media extends DataObject
         'Transliteration' => 'Varchar(255)',
         'NativeTitle' => 'Varchar(255)',
         'Description' => 'Text',
-        'Sort' => 'Int',
         'LastUpdate' => 'Date',
         'Rating' => 'Percentage'
     ];
@@ -28,6 +30,7 @@ class Media extends DataObject
     private static $has_one = [
         'MediaCatalog' => MediaCatalog::class,
         'Image' => Image::class,
+        'Type' => Type::class
     ];
 
     private static $owns = [
@@ -36,6 +39,8 @@ class Media extends DataObject
 
     private static $summary_fields = [
         'Image.CMSThumbnail' => 'Image',
+        //'GridThumbnail' => 'Image',
+        'Type.Name' => 'Type',
         'Title' => 'Title',
         'NativeTitle' => 'Native Title',
         'Transliteration' => 'Transliteration',
@@ -43,7 +48,21 @@ class Media extends DataObject
         'LastUpdate' => 'Last Update'
     ];
 
-    private static $default_sort = 'SORT ASC';
+    private static $default_sort = 'Title ASC';
+
+    
+    private static $extensions = [
+        Versioned::class,
+    ];
+    //private static $versioned_gridfield_extensions = true;
+    
+    public function getGridThumbnail()
+    {
+        if($this->Image()->exists()) {
+            return $this->Image()->ScaleWidth(100);
+        }
+
+    }
 
     public function getCMSFields()
     {
@@ -54,6 +73,7 @@ class Media extends DataObject
             TextField::create('NativeTitle', 'Native Title'),
             DateField::create('LastUpdate','Last Updated'),
             TextareaField::create('Description', 'Description'),
+            DropdownField::create( 'TypeID', 'Type',  Type::get()->map('ID', 'Name') )->setEmptyString('(Select one)'),
             NumericField::create('Rating', 'Rating')
                 ->setScale(2),
             $uploader = UploadField::create('Image', 'Cover Image')
