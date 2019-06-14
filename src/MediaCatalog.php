@@ -14,17 +14,36 @@ class MediaCatalog extends Page
 
     private static $has_many = [
         'Multimedia' => Media::class,
+        'Types' => Type::class,
+    ];
+
+    // Publish cascades to the following:
+    private static $owns = [
+        'Multimedia'
     ];
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->addFieldToTab('Root.Media', GridField::create(
+
+        $Media = GridField::create(
             'Multimedia',
-            'Multimedia on this page',
+            'Media on this page',
             $this->Multimedia(),
             GridFieldConfig_RecordEditor::create()
-        ));
+        );
+
+        $Type = GridField::create(
+            'Types',
+            'Media Types on this page',
+            $this->Types(),
+            GridFieldConfig_RecordEditor::create()
+        );
+
+
+        $fields->addFieldToTab('Root.Media', $Media);
+        $fields->addFieldToTab('Root.Media Types', $Type);
+
         return $fields;
     }
 }
