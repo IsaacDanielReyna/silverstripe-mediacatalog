@@ -38,8 +38,8 @@ class Media extends DataObject
     ];
 
     private static $summary_fields = [
-        'Image.CMSThumbnail' => 'Image',
         //'GridThumbnail' => 'Image',
+        'Image.CMSThumbnail' => 'Image',
         'Type.Name' => 'Type',
         'Title' => 'Title',
         'NativeTitle' => 'Native Title',
@@ -48,14 +48,20 @@ class Media extends DataObject
         'LastUpdate' => 'Last Update'
     ];
 
-    private static $default_sort = 'Title ASC';
-
+    private static $searchable_fields = [
+        'Title',
+        'NativeTitle',
+        'Transliteration'
+     ];
     
     private static $extensions = [
         Versioned::class,
     ];
+
+    private static $default_sort = 'Title ASC';
+
     //private static $versioned_gridfield_extensions = true;
-    
+
     public function getGridThumbnail()
     {
         if($this->Image()->exists()) {
