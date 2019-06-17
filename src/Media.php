@@ -2,30 +2,33 @@
 
 namespace IsaacDanielReyna\MediaCatalog;
 
-use SilverStripe\ORM\DataObject;
 use SilverStripe\Assets\Image;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\DateField;
-use SilverStripe\Forms\TextareaField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Versioned\Versioned;
-use SilverStripe\ORM\Connect\MySQLSchemaManager;
 
 class Media extends DataObject
 {
     private static $table_name = 'idr_catalog_media';
-    
+
     private static $db = [
         'Title' => 'Varchar(255)',
         'Transliteration' => 'Varchar(255)',
         'NativeTitle' => 'Varchar(255)',
         'Description' => 'Text',
         'LastUpdate' => 'Date',
-        'Rating' => 'Percentage'
+        'Rating' => 'Percentage',
+        'slug' => 'Text'
     ];
+
+    private static $default_sort = 'Title ASC';
 
     private static $has_one = [
         'MediaCatalog' => MediaCatalog::class,
@@ -53,12 +56,11 @@ class Media extends DataObject
         'NativeTitle',
         'Transliteration'
      ];
+
     
     private static $extensions = [
         Versioned::class,
     ];
-
-    private static $default_sort = 'Title ASC';
 
     //private static $versioned_gridfield_extensions = true;
 
@@ -70,24 +72,77 @@ class Media extends DataObject
 
     }
 
+    public function getCMSValidator() {
+		return new RequiredFields('Title');
+    }
+    
     public function getCMSFields()
     {
         $fields = FieldList::create(
+            TextField::create('slug', 'Slug'),
             TextField::create('Title', 'Title'),
             TextField::create('Transliteration', 'Transliteration')
                 ->setDescription('Transliteration of the native title'),
             TextField::create('NativeTitle', 'Native Title'),
             DateField::create('LastUpdate','Last Updated'),
             TextareaField::create('Description', 'Description'),
-            DropdownField::create( 'TypeID', 'Type',  Type::get()->map('ID', 'Name') )->setEmptyString('(Select one)'),
+            DropdownField::create( 'TypeID', 'Type',  Type::get()
+                ->filter(['MediaCatalogID' => $this->MediaCatalogID])
+                ->map('ID', 'Name') )->setEmptyString('(Select one)'),
             NumericField::create('Rating', 'Rating')
                 ->setScale(2),
             $uploader = UploadField::create('Image', 'Cover Image')
         );
 
+        
         $uploader->setFolderName('MediaCatalog');
         $uploader->getValidator()->setAllowedExtensions(['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg','jp2', 'webp', 'jxr']);
 
         return $fields;
+    }
+
+    public function Link()
+    {
+        return $this->MediaCatalog()->Link('show/'.$this->ID);
+    }
+
+    public function onBeforeWrite()
+    {
+        $this->slug = $this->slugify($this->Title);
+
+        $count = 2;
+        while (!$this->validURLSegment()) {
+            $this->slug = preg_replace('/-[0-9]+$/', null, $this->slug) . '-' . $count;
+            $count++;
+        }
+
+        parent::onBeforeWrite();
+    }
+
+    public function slugify ($string) {
+        $string = utf8_encode($string);
+        $string = preg_replace('/[^a-z0-9- ]/i', '', $string);
+        $string = str_replace(' ', '-', $string);
+        $string = preg_replace('/-+/', '-', $string);
+        $string = trim($string, '-');
+        $string = strtolower($string);
+    
+        if (empty($string)) {
+            return 'n-a';
+        }
+    
+        return $string;
+    }
+
+    public function validURLSegment()
+    {   
+        $source = Media::get()
+            ->filter([
+                'MediaCatalogID' => $this->MediaCatalogID,
+                'slug' => $this->slug
+            ])
+            ->exclude('ID', $this->ID);
+
+        return !$source->exists();
     }
 }
