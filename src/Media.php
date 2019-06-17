@@ -103,7 +103,7 @@ class Media extends DataObject
 
     public function Link()
     {
-        return $this->MediaCatalog()->Link('show/'.$this->ID);
+        return $this->MediaCatalog()->Link('show/'.$this->slug);
     }
 
     public function onBeforeWrite()

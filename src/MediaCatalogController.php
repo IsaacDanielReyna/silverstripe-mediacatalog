@@ -13,7 +13,10 @@ class MediaCatalogController extends PageController
 
     public function show(HTTPRequest $request)
     {
-        $media = Media::get()->byID($request->param('ID'));
+        $media = Media::get()->filter([
+            'MediaCatalogID' => $this->ID,
+            'slug' => $request->param('ID')
+        ])->first();
 
         if (!$media){
             return $this->httpError(404,'Sorry, it seems you were trying to access a page that doesn\'t exist.');
