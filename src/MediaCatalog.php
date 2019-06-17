@@ -46,4 +46,18 @@ class MediaCatalog extends Page
 
         return $fields;
     }
+
+    // Get all Media Data Objects from database
+    public function AllMedia()
+    {
+        return Media::get();
+    }
+
+    // Get all Media Data Objects from this page
+    public function Media()
+    {
+        return Media::get()->filter([
+            'MediaCatalogID' => $this->ID
+        ]);
+    }
 }
