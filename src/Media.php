@@ -22,6 +22,7 @@ class Media extends DataObject
         'Title' => 'Varchar(255)',
         'Transliteration' => 'Varchar(255)',
         'NativeTitle' => 'Varchar(255)',
+        'MenuTitle' => 'Varchar(255)',
         'Description' => 'Text',
         'LastUpdate' => 'Date',
         'Rating' => 'Percentage',
@@ -103,11 +104,12 @@ class Media extends DataObject
 
     public function Link()
     {
-        return $this->MediaCatalog()->Link('show/'.$this->slug);
+        return $this->MediaCatalog()->Link($this->slug);
     }
 
     public function onBeforeWrite()
     {
+        $this->MenuTitle = $this->Title;
         $this->slug = $this->slugify($this->Title);
 
         $count = 2;
