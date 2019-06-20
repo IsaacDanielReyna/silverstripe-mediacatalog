@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Media Catalog</h1>
             $Content
         </div>
     </div>

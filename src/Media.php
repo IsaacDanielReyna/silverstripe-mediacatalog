@@ -102,6 +102,12 @@ class Media extends DataObject
         return $fields;
     }
 
+    // Half Stars [0.0, 0.5, 1.0, ..., 4.5, 5.0]
+    public function Stars()
+    {
+        return $this->Rating*100;
+    }
+
     public function Link()
     {
         return $this->MediaCatalog()->Link($this->slug);

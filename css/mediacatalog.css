@@ -1,0 +1,12 @@
+.rating-container{
+    position: initial;
+    width: 100px;
+    height:50px;
+    background-color:purple;
+}
+
+.rating-percentage{
+    background-color:red;
+    width:100%;
+    height:50px;
+}
