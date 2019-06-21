@@ -6,9 +6,17 @@ use PageController;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
+use SilverStripe\View\Requirements;
 
 class MediaCatalogController extends PageController
 {
+    protected function init()
+    {
+        parent::init();
+
+        Requirements::css("isaacdanielreyna/mediacatalog: css/mediacatalog.css");
+    }
+
     private static $allowed_actions = [
         'show'
     ];
