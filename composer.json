@@ -13,8 +13,7 @@
 		}
 	],
     "require": {
-        "silverstripe/framework": "^4.0",
-        "silverstripe/admin": "^1.0"
+        "silverstripe/framework": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -22,9 +21,6 @@
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-feature/media-object": "2.5-dev"
-        },
         "expose": [
             "css",
             "javascript",
