@@ -23,7 +23,7 @@
                         <td>$Type.Name</td>
                         <td><a href="$Link">$Title</a></td>
                         <td>$Description</td>
-                        <td>$Rating</td>
+                        <td>$Stars</td>
                     </tr>
                     <% end_loop %>
                 </tbody>

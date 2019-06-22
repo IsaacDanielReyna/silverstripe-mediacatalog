@@ -5,15 +5,17 @@
             <div class="media">
                     $Image
                     <div class="media-body">
-                            
                         <h5 class="mt-0">$Title</h5>
-                        <div class="rating-container" title="$Stars/100">
-                            <div class="rating-percentage" style="width:$Stars%;"></div>
-                            <svg id="star" viewBox="0 0 24 24"><path d="M0,0V24H24V0ZM19.37,23.93,12,18.29,4.63,23.93l2.82-9.12L.07,9.19H9.19L12,.07l2.81,9.12h9.12l-7.38,5.62Z"/></svg>
-                            <svg id="star" viewBox="0 0 24 24"><path d="M0,0V24H24V0ZM19.37,23.93,12,18.29,4.63,23.93l2.82-9.12L.07,9.19H9.19L12,.07l2.81,9.12h9.12l-7.38,5.62Z"/></svg>
-                            <svg id="star" viewBox="0 0 24 24"><path d="M0,0V24H24V0ZM19.37,23.93,12,18.29,4.63,23.93l2.82-9.12L.07,9.19H9.19L12,.07l2.81,9.12h9.12l-7.38,5.62Z"/></svg>
-                            <svg id="star" viewBox="0 0 24 24"><path d="M0,0V24H24V0ZM19.37,23.93,12,18.29,4.63,23.93l2.82-9.12L.07,9.19H9.19L12,.07l2.81,9.12h9.12l-7.38,5.62Z"/></svg>
-                            <svg id="star" viewBox="0 0 24 24"><path d="M0,0V24H24V0ZM19.37,23.93,12,18.29,4.63,23.93l2.82-9.12L.07,9.19H9.19L12,.07l2.81,9.12h9.12l-7.38,5.62Z"/></svg>
+
+                        <div class="five-star-rating" title="$Stars/100">
+                                <svg viewBox="0 0 125 25">
+                                <rect class="rating-bar" width="$Stars%" height="25"/>
+                                <path class="rating-star" d="M-2-2v29h129V-2H-2z M120.2,25l-7.7-5.9l-7.7,5.9l3-9.6L100,9.6l-7.7,5.9l3,9.6l-7.7-5.9L79.8,25
+                                    l3-9.6L75,9.6l-7.7,5.9l3,9.6l-7.7-5.9L54.8,25l3-9.6L50,9.6l-7.7,5.9l3,9.6l-7.7-5.9L29.8,25l3-9.6L25,9.6l-7.7,5.9l3,9.6l-7.7-5.9
+                                    L4.8,25l3-9.6L0,9.6h9.6L12.5,0l2.9,9.6H25h9.6L37.5,0l2.9,9.6H50h9.6L62.5,0l2.9,9.6H75h9.6L87.5,0l2.9,9.6h9.6h9.6l2.9-9.6
+                                    l2.9,9.6h9.6l-7.7,5.9L120.2,25z"/>
+                                </svg>
+                                
                         </div>
                         <p><strong>$NativeTitle</strong> $Transliteration</p>
                         $Description
