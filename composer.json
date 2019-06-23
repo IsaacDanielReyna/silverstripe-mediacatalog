@@ -4,16 +4,16 @@
     "type": "silverstripe-vendormodule",
     "homepage": "https://github.com/isaacdanielreyna/silverstripe-mediacatalog",
     "keywords": ["silverstripe","media catalog"],
+    "license": "BSD-3-Clause",
 	"authors": [
 		{
 			"name": "Isaac Daniel Reyna",
-			"email": "silverstripe@isaacreyna.com"
+            "email": "silverstripe@isaacreyna.com",
+            "homepage": "https://www.isaacreyna.com"
 		}
 	],
-    "license": "none",
     "require": {
-        "silverstripe/framework": "^4.0",
-        "silverstripe/admin": "^1.0"
+        "silverstripe/framework": "^4.0"
     },
     "autoload": {
         "psr-4": {
