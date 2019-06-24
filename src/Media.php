@@ -23,7 +23,7 @@ class Media extends DataObject
         'Transliteration' => 'Varchar(255)',
         'NativeTitle' => 'Varchar(255)',
         'MenuTitle' => 'Varchar(255)',
-        'Description' => 'Text',
+        'Summary' => 'Text',
         'LastUpdate' => 'Date',
         'Rating' => 'Percentage',
         'slug' => 'Text'
@@ -34,7 +34,6 @@ class Media extends DataObject
     private static $has_one = [
         'MediaCatalog' => MediaCatalog::class,
         'Image' => Image::class,
-        'Type' => Type::class
     ];
 
     private static $owns = [
@@ -44,12 +43,11 @@ class Media extends DataObject
     private static $summary_fields = [
         //'GridThumbnail' => 'Image',
         'Image.CMSThumbnail' => 'Image',
-        'Type.Name' => 'Type',
         'Title' => 'Title',
         'NativeTitle' => 'Native Title',
         'Transliteration' => 'Transliteration',
         'Rating' => 'Raiting',
-        'LastUpdate' => 'Last Update'
+        'LastUpdate' => 'Last Updated'
     ];
 
     private static $searchable_fields = [
@@ -63,14 +61,11 @@ class Media extends DataObject
         Versioned::class,
     ];
 
-    //private static $versioned_gridfield_extensions = true;
-
     public function getGridThumbnail()
     {
         if($this->Image()->exists()) {
             return $this->Image()->ScaleWidth(100);
         }
-
     }
 
     public function getCMSValidator() {
@@ -80,16 +75,13 @@ class Media extends DataObject
     public function getCMSFields()
     {
         $fields = FieldList::create(
-            TextField::create('slug', 'Slug'),
             TextField::create('Title', 'Title'),
             TextField::create('Transliteration', 'Transliteration')
                 ->setDescription('Transliteration of the native title'),
             TextField::create('NativeTitle', 'Native Title'),
+            TextField::create('slug', 'Slug'),
             DateField::create('LastUpdate','Last Updated'),
-            TextareaField::create('Description', 'Description'),
-            DropdownField::create( 'TypeID', 'Type',  Type::get()
-                ->filter(['MediaCatalogID' => $this->MediaCatalogID])
-                ->map('ID', 'Name') )->setEmptyString('(Select one)'),
+            TextareaField::create('Summary', 'Summary'),
             NumericField::create('Rating', 'Rating')
                 ->setScale(2),
             $uploader = UploadField::create('Image', 'Cover Image')
@@ -102,7 +94,6 @@ class Media extends DataObject
         return $fields;
     }
 
-    // Half Stars [0.0, 0.5, 1.0, ..., 4.5, 5.0]
     public function Stars()
     {
         return $this->Rating*100;
@@ -115,19 +106,34 @@ class Media extends DataObject
 
     public function onBeforeWrite()
     {
+        // Needed for Breadcumbs
         $this->MenuTitle = $this->Title;
-        $this->slug = $this->slugify($this->Title);
 
-        $count = 2;
-        while (!$this->validURLSegment()) {
-            $this->slug = preg_replace('/-[0-9]+$/', null, $this->slug) . '-' . $count;
-            $count++;
-        }
+        // Build URL Slug
+        $this->slug = $this->BuildSlug();
+
+        // Set Last Update if empty
+        if (!$this->LastUpdate)
+            $this->LastUpdate = time();
 
         parent::onBeforeWrite();
     }
 
-    public function slugify ($string) {
+    public function BuildSlug()
+    {
+        $slug = $this->slugify($this->Title);
+
+        $count = 2;
+        while (!$this->validURLSegment()) {
+            $slug = preg_replace('/-[0-9]+$/', null, $slug) . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
+
+    public function slugify ($string)
+    {
         $string = utf8_encode($string);
         $string = preg_replace('/[^a-z0-9- ]/i', '', $string);
         $string = str_replace(' ', '-', $string);
