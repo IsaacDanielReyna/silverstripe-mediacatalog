@@ -1,4 +1,53 @@
-.five-star-rating{width:125px;height:25px;font-size:0;background:#71172b;}
-.rating-bar{fill:#D89126;}
-.rating-star{fill:#fff;}
-.MediaCatalog h1 {font-weight: bold;font-size: 27px;}
+.five-star-rating{
+    width:125px;height:25px;font-size:0;background:#71172b;
+}
+.rating-bar{
+    fill:#D89126;
+}
+.rating-star{
+    fill:#fff;
+}
+.summary{
+    padding:40px 0;
+}
+.poster{
+    box-shadow: 2px 2px 3px 1px rgb(118, 118, 118);
+}
+.poster .five-star-rating{
+    margin: 0 auto;position:relative;top:164px;
+}
+.poster .rating-star{
+    fill:#ee355f;
+}
+.poster .rating-bar{
+    fill:#fff;
+}
+.poster{
+    display: inline-block;position: inherit;background: #ee355f;width: 200px;height: 300px;margin: 15px;
+}
+.poster .title{
+	display: block;
+	text-align: center;
+	color: #71172b;
+	font-weight: bold;
+	font-family: "Roboto", sans-serif;
+	font-size:16px;
+	line-height: 1;
+	position: relative;
+    top: 144px;
+}
+.poster img {
+	position:absolute;
+	top:0;
+	left:0;
+	width: 200px;
+	height: 300px;
+	-webkit-transition: opacity 0.35s ease-in-out;
+	-moz-transition: opacity 0.35s ease-in-out;
+	-o-transition: opacity 0.35s ease-in-out;
+	transition: opacity 0.35s ease-in-out;
+}
+.poster img:hover {
+	opacity:0;
+	cursor: pointer;
+}
