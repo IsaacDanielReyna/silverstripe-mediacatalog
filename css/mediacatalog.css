@@ -10,6 +10,9 @@
 .summary{
     padding:40px 0;
 }
+.posters{
+    position:relative;
+}
 .poster{
     box-shadow: 2px 2px 3px 1px rgb(118, 118, 118);
 }
@@ -45,7 +48,8 @@
 	-webkit-transition: opacity 0.35s ease-in-out;
 	-moz-transition: opacity 0.35s ease-in-out;
 	-o-transition: opacity 0.35s ease-in-out;
-	transition: opacity 0.35s ease-in-out;
+    transition: opacity 0.35s ease-in-out;
+    border:none;
 }
 .poster img:hover {
 	opacity:0;

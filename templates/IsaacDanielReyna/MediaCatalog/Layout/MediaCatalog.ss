@@ -1,12 +1,14 @@
 <div class="container">
+    <% if $Content %>
     <div class="row">
         <div class="col">
             $Content
         </div>
     </div>
+    <% end_if %>
 
     <div class="row">
-        <div class="col-sm-12 text-center">
+        <div id="posters" class="col-sm-12 text-center">
         <% loop $Media %>
             <div class="poster">
                 <a title="Learn more about $Title" href="$Link">
