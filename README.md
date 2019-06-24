@@ -12,5 +12,5 @@ composer require isaacdanielreyna/mediacatalog
 ```
 
 ## Screenshots
-![List View](docs/img/MediaCatalog-1.png)
-![Item View](docs/img/MediaCatalog-1.png)
+![List View](docs/img/MediaCatalog-1.jpg)
+![Item View](docs/img/MediaCatalog-2.jpg)
