@@ -13,8 +13,13 @@ class MediaCatalogController extends PageController
     protected function init()
     {
         parent::init();
-
+        
         Requirements::css("isaacdanielreyna/mediacatalog: css/mediacatalog.css");
+        if (!$this->DisableBootstrap)
+        {
+            Requirements::css("isaacdanielreyna/mediacatalog: css/bootstrap.min.css");
+            Requirements::javascript("isaacdanielreyna/mediacatalog: javascript/bootstrap.min.js");
+        }
     }
 
     private static $allowed_actions = [
