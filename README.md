@@ -10,3 +10,7 @@ Templates use Boostrap 4's grid system.
 ```
 composer require isaacdanielreyna/mediacatalog
 ```
+
+## Screenshots
+![List View](docs/img/MediaCatalog-1.png)
+![Item View](docs/img/MediaCatalog-1.png)
